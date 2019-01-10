@@ -14,15 +14,6 @@ class App extends Component {
             <div>
               <Route path="/dashboard" component={Dashboard} />
 
-              {/* <Route 
-                path="/login"
-                render={() => (
-                  <Link to="/dashboard">
-                    <LogSign text="Login" />
-                  </Link>
-                )}
-              /> */}
-
               <Route path="/" component={LogSign} />
             </div>
           </Router>
