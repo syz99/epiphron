@@ -19,9 +19,7 @@ class App extends Component {
   render() {
     const childProps = {
       id: this.state.id,
-      userHasAuthenticated: this.userHasAuthenticated,
-      //eslint-disable-next-line
-      history: {history}
+      userHasAuthenticated: this.userHasAuthenticated
     };
 
     return (
