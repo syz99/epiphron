@@ -14,7 +14,7 @@ class App extends Component {
             <div>
               <Route path="/dashboard" component={Dashboard} />
 
-              {/* <Route
+              {/* <Route 
                 path="/login"
                 render={() => (
                   <Link to="/dashboard">
