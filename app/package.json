@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@opuscapita/react-responsive-navbar": "^3.2.2",
     "firebase": "^5.7.2",
     "react": "^16.7.0",
     "react-bootstrap": "^0.32.4",
@@ -28,8 +29,6 @@
   ],
   "devDependencies": {
     "@babel/core": "^7.2.2",
-    "@babel/preset-env": "^7.2.3",
-    "babel-loader": "^8.0.5",
-    "webpack": "^4.28.4"
+    "@babel/preset-env": "^7.2.3"
   }
 }
