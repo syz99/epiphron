@@ -1,30 +1,39 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./css/App.css";
 import LoginForm from "./components/LoginForm";
-import LogSign from "./components/LogSign";
 import Dashboard from "./components/Dashboard";
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      id: ""
+    };
+  }
+
+  userHasAuthenticated = userid => {
+    this.setState({ id: userid });
+  }
+
   render() {
+    const childProps = {
+      id: this.state.id,
+      userHasAuthenticated: this.userHasAuthenticated,
+      //eslint-disable-next-line
+      history: {history}
+    };
+
     return (
       <div className="App">
         <header className="App-header">
           <Router>
-            <div>
+            <Switch>
               <Route path="/dashboard" component={Dashboard} />
-
-              {/* <Route
-                path="/login"
-                render={() => (
-                  <Link to="/dashboard">
-                    <LogSign text="Login" />
-                  </Link>
-                )}
-              /> */}
-
-              <Route path="/" component={LogSign} />
-            </div>
+              <Route path="/"
+                render={(props) => <LoginForm childProps={childProps} />}
+              />
+            </Switch>
           </Router>
         </header>
       </div>
