@@ -8,7 +8,9 @@ class LogSign extends Component {
     return (
       <div>
         <div>
-          <img src={logo} className="App-logo" alt="logo" />
+          <Link to="/">
+            <img src={logo} className="App-logo" alt="logo" />
+          </Link>
         </div>
 
         <Link to="/dashboard">
