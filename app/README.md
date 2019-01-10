@@ -11,4 +11,4 @@ Bundles app into static files for production
 
 yarn test
 Starts the test runner
-[running tests](https://facebook.github.io/create-react-app/docs/running-tests)
+[documentation](https://facebook.github.io/create-react-app/docs/running-tests)
