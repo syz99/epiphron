@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import "./App.css";
-import LoginForm from "./LoginForm"
-import LogSign from "./LogSign";
-import Dashboard from "./Dashboard";
+import "./css/App.css";
+import LoginForm from "./components/LoginForm";
+import LogSign from "./components/LogSign";
+import Dashboard from "./components/Dashboard";
 
 class App extends Component {
   render() {

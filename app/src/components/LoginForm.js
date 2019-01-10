@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./index.css";
+import "../css/index.css";
 
 class LoginForm extends Component {
   constructor(props) {
@@ -13,15 +13,15 @@ class LoginForm extends Component {
 
   handleChange = event => {
     this.setState({
-      userid: event.target.value,
+      userid: event.target.value
     });
     console.log(event.target.value);
-  }
+  };
 
   handleSubmit = event => {
     event.preventDefault();
     this.props.childProps.userHasAuthenticated(this.state.userid);
-  }
+  };
 
   render() {
     return (
@@ -30,10 +30,18 @@ class LoginForm extends Component {
           <input
             type="text"
             value={this.state.userid}
-            onChange={(event) => {this.handleChange(event)}}
+            onChange={event => {
+              this.handleChange(event);
+            }}
           />
         </form>
-        <button onClick={(event) => {this.handleSubmit(event)}}>Login</button>
+        <button
+          onClick={event => {
+            this.handleSubmit(event);
+          }}
+        >
+          Login
+        </button>
       </div>
     );
   }

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import "./LogSign.css";
-import logo from "./logo.svg";
+import "../css/LogSign.css";
+import logo from "../img/logo.svg";
 import { Link } from "react-router-dom";
 
 class LogSign extends Component {
