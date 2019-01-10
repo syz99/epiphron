@@ -1,31 +1,31 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
 import LoginForm from "./LoginForm"
+import LogSign from "./LogSign";
+import Dashboard from "./Dashboard";
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      id: ""
-    };
-  }
-
-  userHasAuthenticated = userid => {
-    this.setState({ id: userid });
-  }
-
   render() {
-    const childProps = {
-      id: this.state.id,
-      userHasAuthenticated: this.userHasAuthenticated
-    };
-
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <LoginForm childProps={childProps} />
+          <Router>
+            <div>
+              <Route path="/dashboard" component={Dashboard} />
+
+              {/* <Route
+                path="/login"
+                render={() => (
+                  <Link to="/dashboard">
+                    <LogSign text="Login" />
+                  </Link>
+                )}
+              /> */}
+
+              <Route path="/" component={LogSign} />
+            </div>
+          </Router>
         </header>
       </div>
     );
