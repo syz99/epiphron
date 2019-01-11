@@ -32,7 +32,10 @@ class App extends Component {
       <div className="App">
           <Router>
             <Switch>
-              <Route path="/dashboard" component={Dashboard} />
+              <Route
+                path="/dashboard"
+                render={props => <Dashboard childProps={childProps} />}
+              />
               <Route
                 path="/"
                 render={props => <LoginForm childProps={childProps} />}
