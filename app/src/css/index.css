@@ -12,7 +12,11 @@ body {
   color: green;
 }
 
-.app {
+.App {
+  height: 100%;
+}
+
+.maxHeight {
   height: 100%;
 }
 
