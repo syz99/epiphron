@@ -4,10 +4,10 @@ import "../css/index.css";
 class Dashboard extends Component {
   render() {
     return (
-      <section>
-        <div className="column">Monthly Limit</div>
-        <div className="column">One Third</div>
-      </section>
+      <div style={{ display: "flex", flexDirection: "row", height: "100%", position: "relative", color: "white"}}>
+        <div className="column" style={{flexGrow: "3"}}>Monthly Limit</div>
+        <div className="column" style={{flexGrow: "1"}}>One Third</div>
+      </div>
     );
   }
 }

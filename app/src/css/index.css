@@ -12,6 +12,10 @@ body {
   color: green;
 }
 
+.app {
+  height: 100%;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
@@ -28,6 +32,14 @@ section {
   flex-grow: 1;
   flex-shrink: 1;
   flex-basis: 0;
+  padding: 10px 0;
+  background-color: rgba(255, 0, 0, 0.25);
+  text-align: center;
+
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  height: 100%;
 }
 /* OTHER STYLES */
 
@@ -41,16 +53,6 @@ body {
   font-family: "Raleway", sans-serif;
   padding: 10px;
   background: linear-gradient(135deg, #b04, #f80) fixed;
-}
-
-.column {
-  padding: 10px 0;
-  background-color: rgba(255, 0, 0, 0.25);
-  text-align: center;
-
-  border: 1px solid transparentize(white, 0.25);
-  background-color: transparentize(white, 0.8);
-  color: transparentize(white, 0.1);
 }
 /* For LoginForm Overlay*/
 

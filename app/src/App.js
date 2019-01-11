@@ -30,7 +30,6 @@ class App extends Component {
 
     return (
       <div className="App">
-        <header className="App-header">
           <Router>
             <Switch>
               <Route path="/dashboard" component={Dashboard} />
@@ -40,7 +39,6 @@ class App extends Component {
               />
             </Switch>
           </Router>
-        </header>
       </div>
     );
   }
