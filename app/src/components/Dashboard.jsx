@@ -5,16 +5,19 @@ import Grid from "@material-ui/core/Grid";
 import PropTypes from "prop-types";
 import Fab from "@material-ui/core/Fab";
 import Icon from "@material-ui/core/Icon";
+import "../img/edit.svg";
 // import styled from "styled-components";
 
 const styles = theme => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
+    margin: 35
   },
   paper: {
-    padding: theme.spacing.unit * 31, // 18
+    padding: theme.spacing.unit * 29, // 18
     textAlign: "center",
-    color: theme.palette.text.secondary
+    color: theme.palette.text.secondary,
+    height: 100
   }
 });
 
@@ -25,17 +28,40 @@ function Dashboard(props) {
     <div className={classes.root}>
       <Grid container spacing={24}>
         <Grid item xl>
-          <Paper className={classes.paper} id="allowance">
-            <div>$ Allowance</div>
+          <Paper className={classes.paper}>
+            <div>Monthly Limit</div>
             <input type="text" name="name" />
             <Fab color="secondary" aria-label="Edit" className={classes.fab}>
-              {/* <Icon>edit_icon</Icon> */}
+              <Icon>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
+                  <path d="M0 0h24v24H0z" fill="none" />
+                </svg>
+              </Icon>
             </Fab>
-            <div>Two</div>
+            <div>Threshold</div>
+            <Fab color="secondary" aria-label="Edit" className={classes.fab}>
+              <Icon size="small">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
+                  <path d="M0 0h24v24H0z" fill="none" />
+                </svg>
+              </Icon>
+            </Fab>
           </Paper>
         </Grid>
         <Grid item xl>
-          <Paper className={classes.paper}>xs</Paper>
+          <Paper className={classes.paper}>Graph</Paper>
         </Grid>
       </Grid>
     </div>
