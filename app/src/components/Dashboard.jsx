@@ -27,7 +27,7 @@ function Dashboard(props) {
   return (
     <div className={classes.root}>
       <Grid container spacing={24}>
-        <Grid item xl>
+        {/* <Grid item xl>
           <Paper className={classes.paper}>
             <div>Monthly Limit</div>
             <input type="text" name="name" />
@@ -45,6 +45,7 @@ function Dashboard(props) {
               </Icon>
             </Fab>
             <div>Threshold</div>
+            <input type="text" name="name" />
             <Fab color="secondary" aria-label="Edit" className={classes.fab}>
               <Icon size="small">
                 <svg
@@ -61,7 +62,21 @@ function Dashboard(props) {
           </Paper>
         </Grid>
         <Grid item xl>
-          <Paper className={classes.paper}>Graph</Paper>
+          <Paper className={classes.paper}>Ok</Paper>
+        </Grid> */}
+        <Grid item xl>
+          <Paper className={classes.paper}>
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+          </Paper>
+        </Grid>
+        <Grid item xl>
+          <Paper className={classes.paper}>
+            <div />
+            <div>2</div>
+            <div>3</div>
+          </Paper>
         </Grid>
       </Grid>
     </div>
