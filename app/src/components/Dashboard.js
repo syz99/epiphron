@@ -78,45 +78,6 @@ class Dashboard extends Component {
     };
   }
 
-<<<<<<< HEAD
-  componentDidMount() {
-    var prefix = "http://api.reimaginebanking.com/accounts/";
-    var suffix = "/purchases?key=50c1162906a20143626fd3352573573c";
-    var preliminaryRes = prefix.concat("5c3807b4b8e2a665da3eb603"); // Replace with id
-    var res = preliminaryRes.concat(suffix);
-    fetch(res)
-      .then(results => {
-        return results.json();
-      })
-      .then(data => {
-        var today = new Date();
-        var mm = (today.getMonth() + 1).toString();
-        if (mm.length < 2) {
-          mm = "0".concat(mm);
-        }
-        var yyyy = today.getFullYear().toString();
-        var dateMatch = yyyy.concat("-");
-        dateMatch = dateMatch.concat(mm);
-        return data.filter(x => x.purchase_date.startsWith(dateMatch));
-      })
-      .then(data2 => {
-        data2.sort(compareDates);
-        return data2;
-      })
-      .then(data3 => {
-        return Promise.all(data3.map(mapAsync)).then(data => {
-          this.setState({ shane: data.map(x => x.amount).reduce(getSum) });
-          var total = this.state.threshold;
-          for (var i = 0; i < data.length; i++) {
-            var curAmount = data[i].amount;
-            data[i].amount = total;
-            total -= curAmount;
-          }
-          this.setState({ data: data });
-          this.setState({ graphRead: true });
-        });
-      });
-=======
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
     console.log(event.target.value);
@@ -222,7 +183,6 @@ class Dashboard extends Component {
         });
     })
     .catch(err => alert("Internal Server Error: Wait and reload"));
->>>>>>> ae7d6b5788a8306c67558ab859111db2f78a4bc4
   }
 
   render() {
