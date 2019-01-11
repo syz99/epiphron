@@ -25,7 +25,6 @@ class LoginForm extends Component {
   };
 
   checkCollection = (querySnapshot) => {
-    console.log("triggered");
     querySnapshot.forEach((doc) => {
       const { email, name, id } = doc.data();
       if (id == this.state.userid) {
@@ -42,49 +41,32 @@ class LoginForm extends Component {
     db.settings({
       timestampsInSnapshots: true
     });
-    console.log("before calling")
     var test = db.collection("parents").where("parent_id", "==", this.state.userid).get()
     .then(snapshot => {
-        console.log("got to then")
-        console.log(snapshot)
+        var found = false;
         snapshot.forEach(parent => {
-          console.log("got here")
-          console.log(parent);
+          found = true;
+          this.props.childProps.userHasAuthenticated(this.state.userid);
+          this.setState({isParent: true});
+          this.setState({submitted: true});
         })
+        if (!found) {
+          var test = db.collection("parents").where("child_id", "==", this.state.userid).get()
+          .then(snapshot => {
+              snapshot.forEach(parent => {
+                found = true;
+                this.props.childProps.userHasAuthenticated(this.state.userid);
+                this.setState({isParent: false});
+                this.setState({submitted: true});
+              })
+              if (!found) {
+                alert("Invalid ID: Create an account")
+              }
+            })
+          .catch(err => alert("Internal Server Error: Wait and retry"));
+        }
       })
-    .catch(err => console.log("error"));
-    console.log("donea")
-    // .onSnapshot(this.checkCollection);
-    // console.log(test);
-    // var query = db.collection("parents").doc(this.state.userid);
-    // var getQuery = query.get()
-    //   .then(doc => {
-    //     if (!doc.exists) {
-    //       var query = db.collection("students").doc(this.state.userid);
-    //       var getQuery = query.get()
-    //         .then(doc => {
-    //           if (!doc.exists) {
-    //             alert("Invalid ID: Create an account");
-    //           } else {
-    //             console.log("done");
-    //             this.props.childProps.userHasAuthenticated(this.state.userid);
-    //             this.setState({isParent: false});
-    //             this.setState({submitted: true});
-    //           }
-    //         })
-    //         .catch(err => {
-    //           alert("Internal Server Error: Wait and retry");
-    //         })
-    //     } else {
-    //       console.log("done");
-    //       this.props.childProps.userHasAuthenticated(this.state.userid);
-    //       this.setState({isParent: true});
-    //       this.setState({submitted: true});
-    //     }
-    //   })
-    //   .catch(err => {
-    //     alert("Internal Server Error: Wait and retry");
-    //   })
+    .catch(err => alert("Internal Server Error: Wait and retry"));
   };
 
   createAccount = event => {
