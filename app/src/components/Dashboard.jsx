@@ -5,8 +5,8 @@ class Dashboard extends Component {
   render() {
     return (
       <div style={{ display: "flex", flexDirection: "row", height: "100%", position: "relative", color: "white"}}>
-        <div className="column" style={{flexGrow: "3"}}>Monthly Limit</div>
-        <div className="column" style={{flexGrow: "1"}}>One Third</div>
+        <div className="column" style={{flexGrow: "1"}}>Monthly Limit</div>
+        <div className="column" style={{flexGrow: "3"}}>One Third</div>
       </div>
     );
   }
