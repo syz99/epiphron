@@ -29,7 +29,7 @@ code {
 /* just some content with arbitrary styles for explanation purposes */
 .modal {
     width: 300px;
-    height: 200px;
+    height: 250px;
     line-height: 200px;
     position: fixed;
     top: 50%;
