@@ -9,13 +9,13 @@ const styles = theme => ({
     flexGrow: 1
   },
   paper: {
-    padding: theme.spacing.unit * 4,
+    padding: theme.spacing.unit * 2,
     textAlign: "center",
     color: theme.palette.text.secondary
   }
 });
 
-function Dashboard(props) {
+function AutoGrid(props) {
   const { classes } = props;
 
   return (
@@ -46,8 +46,8 @@ function Dashboard(props) {
   );
 }
 
-// AutoGrid.propTypes = {
-//   classes: PropTypes.object.isRequired
-// };
+AutoGrid.propTypes = {
+  classes: PropTypes.object.isRequired
+};
 
-export default withStyles(styles)(Dashboard);
+export default withStyles(styles)(AutoGrid);
