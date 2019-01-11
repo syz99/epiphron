@@ -175,7 +175,7 @@ class LoginForm extends Component {
             />
           </form>
           <button
-            class="button"
+            className="button"
             onClick={event => {
               this.handleSubmit(event);
             }}
@@ -184,7 +184,7 @@ class LoginForm extends Component {
           </button>
           <div>
             <button
-              class="button"
+              className="button"
               onClick={event => {
                 this.openOverlay(event);
               }}

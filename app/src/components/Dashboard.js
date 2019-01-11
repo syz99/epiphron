@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "../css/index.css";
 import logo from "../img/logo.svg";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, CustomBarLabel } from 'recharts';
+import firebase from "./Firestore";
 
 // Start of nessie code
 function compareDates(a,b) {
@@ -49,47 +50,119 @@ class Dashboard extends Component {
     this.state = {
       data: [],
       graphReady: false,
-      shane: 0
+      shane: 0,
+      allowance: 0,
+      threshold: 0,
+      studentId: "",
+      firebaseKey: ""
     };
   }
 
-  componentDidMount() {
-    var prefix = "http://api.reimaginebanking.com/accounts/";
-    var suffix = "/purchases?key=50c1162906a20143626fd3352573573c";
-    var preliminaryRes = prefix.concat("5c3807b4b8e2a665da3eb603"); // Replace with id
-    var res = preliminaryRes.concat(suffix);
-    fetch(res)
-    .then(results => {
-      return results.json()
-    }).then(data => {
+  handleChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
+    console.log(event.target.value);
+  };
 
-      var today = new Date();
-      var mm = (today.getMonth() + 1).toString();
-      if (mm.length < 2) {
-        mm = "0".concat(mm);
+  updateAllowance = event => {
+    const db = firebase.firestore();
+    db.settings({
+      timestampsInSnapshots: true
+    });
+    var data = {
+      monthly_payment: this.state.allowance,
+      parent_id: this.props.childProps.id,
+      student_id: this.state.studentId,
+      threshold: this.state.threshold
+    }
+    return db.collection('pairings').doc(this.state.firebaseKey).set(data).then(() => {
+      return true;
+    }).catch(error => {
+      return {
+        errorCode: error.code,
+        errorMessage: error.message
       }
-      var yyyy = today.getFullYear().toString();
-      var dateMatch = yyyy.concat("-");
-      dateMatch = dateMatch.concat(mm);
-      return data.filter(x => x.purchase_date.startsWith(dateMatch));
-    }).then(data2 => {
-      data2.sort(compareDates);
-      return data2
-    }).then(data3 => {
-      return Promise.all(data3.map(mapAsync))
-        .then(data => {
-          this.setState({shane: data.map(x => x.amount).reduce(getSum)});
-          var total = this.state.threshold;
-          for (var i = 0; i < data.length; i++) {
-            var curAmount = data[i].amount
-            data[i].amount = total;
-            total -= curAmount;
-          }
-          this.setState({data: data});
-          this.setState({graphRead: true});
+    });
+  }
 
-        })
+  updateThreshold = event => {
+    const db = firebase.firestore();
+    db.settings({
+      timestampsInSnapshots: true
+    });
+    var data = {
+      monthly_payment: this.state.allowance,
+      parent_id: this.props.childProps.id,
+      student_id: this.state.studentId,
+      threshold: this.state.threshold
+    }
+    return db.collection('pairings').doc(this.state.firebaseKey).set(data).then(() => {
+      return true;
+    }).catch(error => {
+      return {
+        errorCode: error.code,
+        errorMessage: error.message
+      }
+    });
+  }
+
+  componentDidMount() {
+    // Getting LHS
+    const db = firebase.firestore();
+    db.settings({
+      timestampsInSnapshots: true
+    });
+    var test = db
+      .collection("pairings")
+      .where("parent_id", "==", this.props.childProps.id)
+      .get()
+      .then(snapshot => {
+        snapshot.forEach(parent => {
+          console.log(parent);
+          var object = parent._document.proto.fields;
+          this.setState({allowance: object.monthly_payment.stringValue});
+          this.setState({threshold: object.threshold.stringValue});
+          this.setState({studentId: object.student_id.stringValue});
+          this.setState({firebaseKey: parent.id})
+
+          // For graph
+          var prefix = "http://api.reimaginebanking.com/accounts/";
+          var suffix = "/purchases?key=50c1162906a20143626fd3352573573c";
+          var preliminaryRes = prefix.concat(this.state.studentId); // Replace with id
+          var res = preliminaryRes.concat(suffix);
+          fetch(res)
+          .then(results => {
+            return results.json()
+          }).then(data => {
+            var today = new Date();
+            var mm = (today.getMonth() + 1).toString();
+            if (mm.length < 2) {
+              mm = "0".concat(mm);
+            }
+            var yyyy = today.getFullYear().toString();
+            var dateMatch = yyyy.concat("-");
+            dateMatch = dateMatch.concat(mm);
+            return data.filter(x => x.purchase_date.startsWith(dateMatch));
+          }).then(data2 => {
+            data2.sort(compareDates);
+            return data2
+          }).then(data3 => {
+            return Promise.all(data3.map(mapAsync))
+              .then(data => {
+                this.setState({shane: data.map(x => x.amount).reduce(getSum)});
+                var total = this.state.threshold;
+                for (var i = 0; i < data.length; i++) {
+                  var curAmount = data[i].amount
+                  data[i].amount = total;
+                  total -= curAmount;
+                }
+                this.setState({data: data});
+                this.setState({graphRead: true});
+
+              })
+          })
+        });
     })
+    .catch(err => alert("Internal Server Error: Wait and reload"));
   }
 
   render() {
@@ -106,16 +179,20 @@ class Dashboard extends Component {
           <br />
           <br />
           <div style={{ textAlign: "left" }}>
-            <h1 class="font" s>
+            <h1 className="font" style={{textAlign: "center"}}>
               Monthly Allowance
             </h1>
             <div style={{ display: "flex", justifyContent: "space-around" }}>
-              <input type="text" name="allowance" />
-              {/* <input type="submit" value="Send Request" /> */}
+              <input type="text"
+                name="allowance"
+                value={this.state.allowance}
+                onChange={event => {
+                  this.handleChange(event);
+                }}/>
               <button
                 style={{ lineHeight: "10px" }}
                 onClick={event => {
-                  this.createAccount(event);
+                  this.updateAllowance(event);
                 }}
               >
                 <svg
@@ -131,14 +208,18 @@ class Dashboard extends Component {
             </div>
           </div>
           <div style={{ textAlign: "left" }}>
-            <h1>Threshold</h1>
+            <h1 style={{textAlign: "center"}}>Threshold</h1>
             <div style={{ display: "flex", justifyContent: "space-around" }}>
-              <input type="text" name="threshold" />
-              {/* <input type="submit" value="Send Request" /> */}
+              <input type="text"
+                name="threshold"
+                value={this.state.threshold}
+                onChange={event => {
+                  this.handleChange(event);
+                }}/>
               <button
                 style={{ lineHeight: "10px" }}
                 onClick={event => {
-                  this.createAccount(event);
+                  this.updateThreshold(event);
                 }}
               >
                 <svg
@@ -155,7 +236,8 @@ class Dashboard extends Component {
           </div>
 
           <div style={{ textAlign: "left" }}>
-            <h1>Total Spendings</h1>
+            <h1 style={{textAlign: "center"}}>Total Spendings</h1>
+            <h1 style={{textAlign: "center"}}>${this.state.shane}</h1>
           </div>
         </div>
         <div className="column" style={{flexGrow: "3", display: "flex"}}>
