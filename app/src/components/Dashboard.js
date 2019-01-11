@@ -116,6 +116,16 @@ class Dashboard extends Component {
       threshold: this.state.threshold
     }
     return db.collection('pairings').doc(this.state.firebaseKey).set(data).then(() => {
+      var tempData = this.state.data;
+      var total = this.state.threshold;
+      var thresholdDif = this.state.threshold - tempData[0].amount;
+      tempData[0].amount = parseInt(tempData[0].amount, 10);
+      console.log(thresholdDif);
+      for (var i = 0; i < tempData.length; i++) {
+        tempData[i].amount += thresholdDif;
+      }
+      this.setState({data: tempData});
+      console.log(tempData);
       return true;
     }).catch(error => {
       return {
