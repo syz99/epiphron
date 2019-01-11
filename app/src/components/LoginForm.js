@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import logo from "../img/logo.svg";
+import logo from "../img/logo1.svg";
 import "../css/index.css";
 import { Redirect } from "react-router-dom";
 import firebase from "./Firestore";
+// import { white } from "material-ui/core/styles/colors";
 
 class LoginForm extends Component {
   constructor(props) {
