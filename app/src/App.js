@@ -14,7 +14,7 @@ class App extends Component {
 
   userHasAuthenticated = userid => {
     this.setState({ id: userid });
-  }
+  };
 
   render() {
     const childProps = {
@@ -28,8 +28,9 @@ class App extends Component {
           <Router>
             <Switch>
               <Route path="/dashboard" component={Dashboard} />
-              <Route path="/"
-                render={(props) => <LoginForm childProps={childProps} />}
+              <Route
+                path="/"
+                render={props => <LoginForm childProps={childProps} />}
               />
             </Switch>
           </Router>
