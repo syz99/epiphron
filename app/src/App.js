@@ -8,7 +8,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: ""
+      id: "",
+      isParent: false
     };
   }
 
@@ -16,10 +17,15 @@ class App extends Component {
     this.setState({ id: userid });
   }
 
+  checkParent = isParent => {
+    this.setState({ isParent: isParent });
+  }
+
   render() {
     const childProps = {
       id: this.state.id,
-      userHasAuthenticated: this.userHasAuthenticated
+      userHasAuthenticated: this.userHasAuthenticated,
+      checkParent: this.checkParent
     };
 
     return (
