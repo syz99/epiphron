@@ -4,39 +4,6 @@ import "../css/index.css";
 import { Redirect } from "react-router-dom";
 import firebase from "./Firestore";
 
-<<<<<<< HEAD
-// Start of nessie code
-function compareDates(a, b) {
-  var d1 = Date.parse("2012-11-01");
-  var d2 = Date.parse("2012-11-04");
-  if (d1 < d2) {
-    return -1;
-  }
-  return 1;
-}
-
-function getMerchant(merchantId) {
-  var prefix = "http://api.reimaginebanking.com/enterprise/merchants/";
-  var suffix = "?key=50c1162906a20143626fd3352573573c";
-  var preliminaryRes = prefix.concat(merchantId);
-  var res = preliminaryRes.concat(suffix);
-  return new Promise(function(resolve, reject) {
-    fetch(res)
-      .then(results => {
-        return results.json();
-      })
-      .then(data => {
-        resolve(data.name);
-      })
-      .catch(err => {
-        reject(Error("getMerchant failed"));
-      });
-  });
-}
-// End nessie
-
-=======
->>>>>>> 083fa659fc716610139551dd8cee210bd34ab850
 class LoginForm extends Component {
   constructor(props) {
     super(props);
@@ -128,8 +95,8 @@ class LoginForm extends Component {
   };
 
   openOverlay = event => {
-    this.setState({show_overlay: true});
-  }
+    this.setState({ show_overlay: true });
+  };
 
   render() {
     return this.state.submitted ? (
