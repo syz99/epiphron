@@ -44,21 +44,11 @@ class LoginForm extends Component {
       name: "",
       email: ""
     };
-  };
+  }
 
   handleChange = event => {
-    this.setState({ [event.target.name] : event.target.value });
+    this.setState({ [event.target.name]: event.target.value });
   };
-
-  checkCollection = (querySnapshot) => {
-    querySnapshot.forEach((doc) => {
-      const { email, name, id } = doc.data();
-      if (id == this.state.userid) {
-        return true;
-      }
-    });
-    return false;
-  }
 
   handleSubmit = event => {
     event.preventDefault();
@@ -66,8 +56,11 @@ class LoginForm extends Component {
     db.settings({
       timestampsInSnapshots: true
     });
-    var test = db.collection("parents").where("parent_id", "==", this.state.userid).get()
-    .then(snapshot => {
+    var test = db
+      .collection("parents")
+      .where("parent_id", "==", this.state.userid)
+      .get()
+      .then(snapshot => {
         var found = false;
         snapshot.forEach(parent => {
           found = true;
@@ -77,8 +70,11 @@ class LoginForm extends Component {
           this.setState({submitted: true});
         })
         if (!found) {
-          var test = db.collection("parents").where("child_id", "==", this.state.userid).get()
-          .then(snapshot => {
+          var test = db
+            .collection("parents")
+            .where("child_id", "==", this.state.userid)
+            .get()
+            .then(snapshot => {
               snapshot.forEach(parent => {
                 found = true;
                 this.props.childProps.userHasAuthenticated(this.state.userid);
@@ -87,18 +83,22 @@ class LoginForm extends Component {
                 this.setState({submitted: true});
               })
               if (!found) {
-                alert("Invalid ID: Create an account")
+                alert("Invalid ID: Create an account");
               }
             })
-          .catch(err => alert("Internal Server Error: Wait and retry"));
+            .catch(err => alert("Internal Server Error: Wait and retry"));
         }
       })
-    .catch(err => alert("Internal Server Error: Wait and retry"));
+      .catch(err => alert("Internal Server Error: Wait and retry"));
   };
 
   createAccount = event => {
     event.preventDefault();
-    if (this.state.name == "" || this.state.email == "" || this.state.newid == "") {
+    if (
+      this.state.name == "" ||
+      this.state.email == "" ||
+      this.state.newid == ""
+    ) {
       alert("Please make sure all fields are filled");
     } else {
       // Firebase stuff
@@ -118,7 +118,7 @@ class LoginForm extends Component {
       this.props.childProps.checkParent(this.state.isParent);
       this.setState({submitted: true});
     }
-  }
+  };
 
   openOverlay = event => {
     getMerchant("57cf75cea73e494d8675ec49")
@@ -155,78 +155,98 @@ class LoginForm extends Component {
   }
 
   render() {
-    return this.state.submitted ? <Redirect to="/dashboard" /> :
+    return this.state.submitted ? (
+      <Redirect to="/dashboard" />
+    ) : (
       <div>
-        <div style={{display: this.state.show_overlay === true ? 'block' : 'none'}}>
-        <div className="overlay"></div>
-        <div className="modal">
-          <p style={{lineHeight: "20px"}}>Create an Account</p>
-          <form style={{lineHeight: "10px", display: "flex", flexDirection: "column", justifyContent: "space-evenly", alignItems: "center", height: "60%"}}>
-            <input
-              name="name"
-              type="text"
-              value={this.state.name}
-              placeholder="Enter Full Name"
-              onChange={event => {
-                this.handleChange(event);
+        <div
+          style={{
+            display: this.state.show_overlay === true ? "block" : "none"
+          }}
+        >
+          <div className="overlay" />
+          <div className="modal">
+            <p style={{ lineHeight: "20px" }}>Create an Account</p>
+            <form
+              style={{
+                lineHeight: "10px",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-evenly",
+                alignItems: "center",
+                height: "60%"
               }}
-            />
-            <input
-              type="email"
-              name="email"
-              value={this.state.email}
-              placeholder="Enter Email"
-              onChange={event => {
-                this.handleChange(event);
-              }}
-            />
+            >
+              <input
+                name="name"
+                type="text"
+                value={this.state.name}
+                placeholder="Enter Full Name"
+                onChange={event => {
+                  this.handleChange(event);
+                }}
+              />
+              <input
+                type="email"
+                name="email"
+                value={this.state.email}
+                placeholder="Enter Email"
+                onChange={event => {
+                  this.handleChange(event);
+                }}
+              />
+              <input
+                type="text"
+                name="newid"
+                value={this.state.newid}
+                placeholder="Enter Account Number"
+                onChange={event => {
+                  this.handleChange(event);
+                }}
+              />
+              <button
+                style={{ lineHeight: "10px" }}
+                onClick={event => {
+                  this.createAccount(event);
+                }}
+              >
+                Create Account
+              </button>
+            </form>
+          </div>
+        </div>
+        <div>
+          <img src={logo} className="App-logo" alt="logo" />
+          <form>
             <input
               type="text"
-              name="newid"
-              value={this.state.newid}
+              name="userid"
+              value={this.state.userid}
               placeholder="Enter Account Number"
               onChange={event => {
                 this.handleChange(event);
               }}
             />
-            <button style={{lineHeight: "10px"}}
-              onClick={event => {
-                this.createAccount(event);
-              }}>
-              Create Account
-            </button>
           </form>
-        </div>
-      </div>
-      <div>
-        <img src={logo} className="App-logo" alt="logo" />
-        <form>
-          <input
-            type="text"
-            name="userid"
-            value={this.state.userid}
-            placeholder="Enter Account Number"
-            onChange={event => {
-              this.handleChange(event);
-            }}
-          />
-        </form>
-        <button
-          onClick={event => {
-            this.handleSubmit(event);
-          }}>
-          Login
-        </button>
-        <div>
           <button
             onClick={event => {
-              this.openOverlay(event);
-            }}>
-          Create an Account
+              this.handleSubmit(event);
+            }}
+          >
+            Login
           </button>
+          <div>
+            <button
+              onClick={event => {
+                this.openOverlay(event);
+              }}
+            >
+              Create an Account
+            </button>
+          </div>
         </div>
       </div>
-      </div>;
+    );
   }
 }
 

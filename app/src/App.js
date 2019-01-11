@@ -15,7 +15,7 @@ class App extends Component {
 
   userHasAuthenticated = userid => {
     this.setState({ id: userid });
-  }
+  };
 
   checkParent = isParent => {
     this.setState({ isParent: isParent });
@@ -34,8 +34,9 @@ class App extends Component {
           <Router>
             <Switch>
               <Route path="/dashboard" component={Dashboard} />
-              <Route path="/"
-                render={(props) => <LoginForm childProps={childProps} />}
+              <Route
+                path="/"
+                render={props => <LoginForm childProps={childProps} />}
               />
             </Switch>
           </Router>

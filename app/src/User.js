@@ -1,12 +1,12 @@
-import React from 'react';
+import React from "react";
 import firebase from "./firebase";
 
 class User extends React.Component {
   constructor() {
     super();
     this.state = {
-      email: “”,
-      fullname: “”
+      email: "",
+      fullname: ""
     };
   }
 
@@ -15,8 +15,8 @@ class User extends React.Component {
     addUser = e => {
       e.preventDefault();
       this.setState({
-        fullname: “”,
-        email: “”
+        fullname: "",
+        email: ""
       });
     };
   };
@@ -24,16 +24,8 @@ class User extends React.Component {
   render() {
     return (
       <form>
-        <input
-          type="text"
-          name="fullname"
-          placeholder="Full name"
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Full name"
-        />
+        <input type="text" name="fullname" placeholder="Full name" />
+        <input type="email" name="email" placeholder="Full name" />
         <button type="submit">Submit</button>
       </form>
     );
