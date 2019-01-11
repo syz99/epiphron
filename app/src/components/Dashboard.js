@@ -63,7 +63,7 @@ function mapAsync(item) {
 // End nessie
 
 class Dashboard extends Component {
-  constructor(props) {
+	constructor(props) {
     super(props);
 
     this.state = {
