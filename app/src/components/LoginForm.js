@@ -39,10 +39,10 @@ class LoginForm extends Component {
         snapshot.forEach(parent => {
           found = true;
           this.props.childProps.userHasAuthenticated(this.state.userid);
-          this.setState({isParent: true});
+          this.setState({ isParent: true });
           this.props.childProps.checkParent(this.state.isParent);
-          this.setState({submitted: true});
-        })
+          this.setState({ submitted: true });
+        });
         if (!found) {
           var test = db
             .collection("parents")
@@ -52,10 +52,10 @@ class LoginForm extends Component {
               snapshot.forEach(parent => {
                 found = true;
                 this.props.childProps.userHasAuthenticated(this.state.userid);
-                this.setState({isParent: false});
+                this.setState({ isParent: false });
                 this.props.childProps.checkParent(this.state.isParent);
-                this.setState({submitted: true});
-              })
+                this.setState({ submitted: true });
+              });
               if (!found) {
                 alert("Invalid ID: Create an account");
               }
@@ -88,15 +88,15 @@ class LoginForm extends Component {
 
       // Go to dashboard/login
       this.props.childProps.userHasAuthenticated(this.state.newid);
-      this.setState({isParent: true});
+      this.setState({ isParent: true });
       this.props.childProps.checkParent(this.state.isParent);
-      this.setState({submitted: true});
+      this.setState({ submitted: true });
     }
   };
 
   openOverlay = event => {
-    this.setState({show_overlay: true});
-  }
+    this.setState({ show_overlay: true });
+  };
 
   render() {
     return this.state.submitted ? (
@@ -159,8 +159,10 @@ class LoginForm extends Component {
             </form>
           </div>
         </div>
-        <div>
+        <div style={{ marginTop: 60 + "px" }}>
           <img src={logo} className="App-logo" alt="logo" />
+          <br />
+          <br />
           <form>
             <input
               type="text"
@@ -173,6 +175,7 @@ class LoginForm extends Component {
             />
           </form>
           <button
+            class="button"
             onClick={event => {
               this.handleSubmit(event);
             }}
@@ -181,11 +184,12 @@ class LoginForm extends Component {
           </button>
           <div>
             <button
+              class="button"
               onClick={event => {
                 this.openOverlay(event);
               }}
             >
-              Create an Account
+              Create Account
             </button>
           </div>
         </div>

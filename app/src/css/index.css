@@ -8,8 +8,24 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.font {
+  font: "Verdana";
+}
+
 .button {
-  color: green;
+  background-color: transparentize(white); /* Green */
+  border: none;
+  padding: 15px 32px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  border-radius: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
 }
 
 .App {
